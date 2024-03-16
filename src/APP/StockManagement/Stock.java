@@ -87,6 +87,7 @@ public class Stock extends JPanel {
         pnlCommand.add(delete, BorderLayout.CENTER);
         pnlCommand.add(pnlDisplay, BorderLayout.PAGE_START);
         add(pnlCommand);
+        resadd = "";
         
 
     
@@ -97,57 +98,25 @@ public class Stock extends JPanel {
      * @param pfile
      * @return ArrayList<Item>
      */
+    @SuppressWarnings("null")
     private ArrayList<Item> loadStock(String pfile){
         Scanner pscan = null;
         ArrayList<Item> ilist = new ArrayList<Item>();
-        
 
         try {
-            Order o = new Order();
             pscan = new Scanner(new File(pfile));
             while (pscan.hasNext()) {
                 String[] nextLine = pscan.nextLine().split(" ");
-                if (nextLine[0]==" " ){
-                    continue;
-                }
-                else{
-                String name = nextLine[0];
-                int quantity = Integer.parseInt(nextLine[1]);
-                 Item item = new Item(name, quantity);
-                 ilist.add(item);
+                if (nextLine[0].equals("resadd")) {
+                    resadd = nextLine[1];
+                } else if (!nextLine[0].isEmpty()) {
+                    String name = nextLine[0];
+                    int quantity = Integer.parseInt(nextLine[1]);
+                    Item item = new Item(name, quantity);
+                    ilist.add(item);
                 }
             }
-            // System.out.println([o.getRStock());
-
-
             pscan.close();
-
-            //     // Reduce stock based on reduceStockContent
-            // // String reduceStockContent = getRStock(); // Get the reduction instructions
-            // String[] reductionLines = getRStock().split("\n");
-            
-            // for (String reductionLine : reductionLines) {
-            //     String[] itemAndQuantity = reductionLine.split(" ");
-            //     String itemName = itemAndQuantity[0];
-            //     int reduceQuantity = Integer.parseInt(itemAndQuantity[1]);
-
-            //     // Find the matching item and reduce its quantity
-            //     // for (Item item : ilist) {
-            //     //     if (item.getItemName().equals(itemName)) {
-            //     //         item.setQuantity(item.getItemQuantity() - reduceQuantity);
-            //     //         // if (item.getItemQuantity() < 0) { // Handle negative quantities
-            //     //         //     item.setQuantity(0);  // Set to 0 if quantity goes below 0
-            //     //         //     System.out.println("Warning: Quantity for " + itemName + " reduced to 0");
-            //     //         //     JOptionPane.showMessageDialog(this, "Warning: Quantity for " + itemName + " reduced to 0");
-            //     //         // }
-            //     //         break; // Move on to the next reduction instruction
-            //     //     }
-            //     // }
-            // }
-        // Reduce stock based on reduceStockContent (using setQuantity)
-       
-    
-
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "System Error Unable to load items");
         }
@@ -155,11 +124,17 @@ public class Stock extends JPanel {
     }
 
    
- public String getRStock()
-{
-    return resadd;
-}
 
+    public void reduceStock(String item_name, int c) {
+        for (Item i : ilist) {
+            if (item_name.equals(i.getItemName())) {
+                int reduction = (resadd.isEmpty()) ? 0 : Integer.parseInt(resadd);
+                int newQuantity = i.getItemQuantity() - Math.max(c - reduction, 0);
+                i.changeQuantity(newQuantity);
+                break;
+            }
+        }
+    }
 /** 
     * @param I
     */
@@ -180,15 +155,18 @@ public class Stock extends JPanel {
      * @param item_name
      * @param c
      */
-    public void reduceStock(String item_name, int c){
-        //reduces the stock qauntity based on order made
-        for (Item i: ilist){
-            if (item_name==i.getItemName() ){
-            int retval= i.getItemQuantity() - c;
-            i.changeQuantity(retval);
-            }
-        }
-    }
+    // public void reduceStock(String item_name, int c){
+    //     //reduces the stock qauntity based on order made
+    //     if (!resadd.isEmpty()) {
+    //         c -= Integer.parseInt(resadd);
+    //     }
+    //     for (Item i: ilist){
+    //         if (item_name==i.getItemName() ){
+    //         int retval= i.getItemQuantity() - c;
+    //         i.changeQuantity(retval);
+    //         }
+    //     }
+    // }
     
     
     /** 

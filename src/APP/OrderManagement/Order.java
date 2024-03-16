@@ -329,7 +329,7 @@ private class Orderpanel extends JFrame implements ActionListener{
     private JTextArea tadd;
     private JButton Done;
   
-    private JTextArea resadd;
+    public JTextArea resadd;
  
 
     public Orderpanel(){
@@ -458,10 +458,11 @@ private class Orderpanel extends JFrame implements ActionListener{
     public String getDescrp() {
     return t_Descrp.getText();
     }
-
     public String getRStock() {
         return resadd.getText();
         }
+
+    
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -658,5 +659,18 @@ private class CompD3 implements Comparator<OrdItem>
 		return n;
     }
 }
+
+
+
+// public static String getRStock() {
+//     // TODO Auto-generated method stub
+//     throw new UnsupportedOperationException("Unimplemented method 'getRStock'");
+// }
+// public String getRStock()
+// {
+//     return resadd.getText();
+// }
+
+
 }
 
