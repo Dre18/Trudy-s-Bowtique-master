@@ -145,22 +145,7 @@ public class Stock extends JPanel {
             //     // }
             // }
         // Reduce stock based on reduceStockContent (using setQuantity)
-        // String reduceStockContent = getRStock();
-        // String[] reductionLines = reduceStockContent.split("\n");
-
-        // for (String reductionLine : reductionLines) {
-        //     String[] itemAndQuantity = reductionLine.split(" ");
-        //     String itemName = itemAndQuantity[0];
-        //     int reduceQuantity = Integer.parseInt(itemAndQuantity[1]);
-
-        //     // Find the matching item and reduce its quantity using setQuantity
-        //     for (Item item : ilist) {
-        //         if (item.getItemName().equals(itemName)) {
-        //             item.setQuantity(item.getItemQuantity() - reduceQuantity);
-        //             break; // Move on to the next reduction instruction
-        //         }
-        //     }
-        // }
+       
     
 
         } catch (IOException e) {
